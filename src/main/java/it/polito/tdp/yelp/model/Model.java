@@ -1,5 +1,6 @@
 package it.polito.tdp.yelp.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,15 @@ public class Model {
 	
 	public List<String> getCitta(){
 		return dao.getCitta();
+	}
+	
+	public List<String> getLocali(){
+		
+		List<String> locali = new ArrayList<>();
+		for(String s: bMap.keySet()) {
+			locali.add(bMap.get(s).getBusinessName());
+		}
+		return locali;
 	}
 	
 	public void creaGrafo(String citta, int anno) {
@@ -55,8 +65,18 @@ public class Model {
 		Business localeM = null;
 		double media = 0.0;
 		for(Business b: grafo.vertexSet()) {
+			double bTot = 0.0;
+			for(DefaultWeightedEdge e: grafo.incomingEdgesOf(b)) {
+				bTot += grafo.getEdgeWeight(e);
+			}
+			for(DefaultWeightedEdge e: grafo.outgoingEdgesOf(b)) {
+				bTot -= grafo.getEdgeWeight(e);
+			}
+			if(bTot > media) {
+				media = bTot;
+				localeM = b;
+			}
 		}
-		
-		return null;
+		return localeM;
 	}
 }

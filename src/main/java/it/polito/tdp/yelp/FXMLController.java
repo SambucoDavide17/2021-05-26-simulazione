@@ -44,7 +44,7 @@ public class FXMLController {
     private ComboBox<Integer> cmbAnno; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbLocale"
-    private ComboBox<?> cmbLocale; // Value injected by FXMLLoader
+    private ComboBox<String> cmbLocale; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtResult"
     private TextArea txtResult; // Value injected by FXMLLoader
@@ -79,6 +79,9 @@ public class FXMLController {
     @FXML
     void doLocaleMigliore(ActionEvent event) {
     	txtResult.clear();
+    	txtResult.appendText("Locale migliore: " + model.localeMigliore().getBusinessName());
+    	
+    	cmbLocale.getItems().addAll(model.getLocali());
 
     }
 
