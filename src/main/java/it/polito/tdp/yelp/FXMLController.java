@@ -78,6 +78,7 @@ public class FXMLController {
 
     @FXML
     void doLocaleMigliore(ActionEvent event) {
+    	txtResult.clear();
 
     }
 

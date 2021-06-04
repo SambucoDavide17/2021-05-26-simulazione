@@ -163,11 +163,11 @@ public class YelpDao {
 		}
 	}
 	
-	public List<Adiacenza> getArchi(String citta, int anno, Map<String, Business> bMap){
+	public List<Adiacenza> getArchi(String citta, int anno){
 		
 		String sql = "select b1.business_id as b1id, b2.business_id as b2id, AVG(r1.stars)-AVG(r2.stars) as peso "
 				+ "from Reviews r1, Reviews r2, Business b1, Business b2 "
-				+ "where b1.business_id = r1.business_id and b2.business_id = r2.business_id and b1.city = b2.city and b1.city = 'Mesa' and Year(r1.review_date) = 2010 and Year(r1.review_date) = Year(r2.review_date) and b1.business_id <> b2.business_id "
+				+ "where b1.business_id = r1.business_id and b2.business_id = r2.business_id and b1.city = b2.city and b1.city = ? and Year(r1.review_date) = ? and Year(r1.review_date) = Year(r2.review_date) and b1.business_id <> b2.business_id "
 				+ "group by b1.business_id, b2.business_id";
 		List<Adiacenza> result = new ArrayList<>();
 		Connection conn = DBConnect.getConnection();
@@ -178,10 +178,8 @@ public class YelpDao {
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 				
-				if(bMap.containsKey(res.getString("b1id")) && bMap.containsKey(res.getString("b2id"))) {
-					Adiacenza nuova = new Adiacenza(bMap.get("b1id"), bMap.get("b2id"), res.getDouble("peso"));
-					result.add(nuova);
-				}
+				Adiacenza nuova = new Adiacenza(res.getString("b1id"), res.getString("b2id"), res.getDouble("peso"));
+				result.add(nuova);
 			}
 			res.close();
 			st.close();

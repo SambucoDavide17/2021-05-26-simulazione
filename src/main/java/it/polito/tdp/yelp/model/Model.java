@@ -32,12 +32,12 @@ public class Model {
 		grafo = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
 		Graphs.addAllVertices(grafo, dao.getVertici(citta, anno, bMap));
 		
-		for(Adiacenza a: dao.getArchi(citta, anno, bMap)) {
-			if(grafo.getEdge(a.getB1(), a.getB2()) == null) {
+		for(Adiacenza a: dao.getArchi(citta, anno)) {
+			if(grafo.getEdge(bMap.get(a.getB1()), bMap.get(a.getB2())) == null) {
 				if(a.getPeso() < 0) 
-					Graphs.addEdge(grafo, a.getB1(), a.getB2(), a.getPeso()*-1);
+					Graphs.addEdge(grafo, bMap.get(a.getB1()), bMap.get(a.getB2()), a.getPeso()*-1);
 				if(a.getPeso() > 0)
-					Graphs.addEdge(grafo, a.getB2(), a.getB1(), a.getPeso());
+					Graphs.addEdge(grafo, bMap.get(a.getB2()), bMap.get(a.getB1()), a.getPeso());
 			}
 		}
 	}
@@ -48,5 +48,14 @@ public class Model {
 	
 	public int edgeNumber() {
 		return grafo.edgeSet().size();
+	}
+	
+	public Business localeMigliore() {
+		
+		Business localeM = null;
+		double media = 0.0;
+		for(Business b: grafo.vertexSet()) {
+		}
+		return null;
 	}
 }
