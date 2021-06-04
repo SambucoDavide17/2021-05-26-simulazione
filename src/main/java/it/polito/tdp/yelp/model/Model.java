@@ -32,6 +32,12 @@ public class Model {
 		grafo = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
 		Graphs.addAllVertices(grafo, dao.getVertici(citta, anno, bMap));
 		
-		
+		for(Adiacenza a: dao.getArchi(citta, anno, bMap)) {
+			if(grafo.getEdge(a.getB1(), a.getB2()) == null) {
+				if(a.getPeso() > 0) {
+		//			Graphs.addIncomingEdges(grafo, a.getB2(), a.getB1(), a.getPeso()*-1);
+				}
+			}
+		}
 	}
 }
