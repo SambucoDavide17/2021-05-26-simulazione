@@ -56,6 +56,7 @@ public class Model {
 		double media = 0.0;
 		for(Business b: grafo.vertexSet()) {
 		}
+		
 		return null;
 	}
 }
