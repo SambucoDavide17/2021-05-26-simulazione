@@ -116,7 +116,7 @@ public class YelpDao {
 		
 		String sql = "select b.business_id, b.active, b.business_name, b.categories, b.city, b.full_address, b.latitude, b.longitude, b.neighborhoods, b.review_count, b.stars, b.state "
 				+ "from Business b, Reviews r "
-				+ "where b.business_id = r.business_id and b.city = ? and YEAR(r.review_date) = ?";
+				+ "where b.business_id = r.business_id and b.city = ? and YEAR(r.review_date) = ? ";
 		List<Business> result = new ArrayList<>();
 		Connection conn = DBConnect.getConnection();
 		try {
@@ -143,7 +143,8 @@ public class YelpDao {
 	public List<String> getCitta(){
 		
 		String sql = "select distinct city "
-				+ "from Business ";
+				+ "from Business "
+				+ "order by city asc";
 		List<String> result = new ArrayList<>();
 		Connection conn = DBConnect.getConnection();
 		try {
