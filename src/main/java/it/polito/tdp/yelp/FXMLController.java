@@ -51,7 +51,6 @@ public class FXMLController {
 
     @FXML
     void doCalcolaPercorso(ActionEvent event) {
-    	txtResult.clear();
     	
     }
 
